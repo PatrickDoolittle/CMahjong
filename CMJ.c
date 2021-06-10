@@ -7,6 +7,14 @@ struct tile{ //Data structure for a Riichi mahjong tile
 };
 typedef struct tile Tile; //Global namespace alias
 
+struct player{ //Data structure for a Riichi mahjong player
+    Tile hand[14];
+    char *name;
+    char *seatWind;
+};
+typedef struct player Player;
+
+
 //String array of suits and honors
 char *suits[3] = {"Manzu","Pinzu","Souzu"};
 char *dragons[3] = {"Red","White","Green"};
@@ -55,4 +63,10 @@ void initialize(Tile deck[]){
             deckIndex++;
         }
     }
+
+    // Function to draw a hand of 14 tiles randomly from the Tile array deck[]
+    void draw(Tile deck[]){
+    
+    }
+
 }

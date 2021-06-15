@@ -6,5 +6,9 @@ int main(void){
     b = a;
     printf("%d\n", *(b));
     printf("%d\n", b);
+    printf("%d\n", &b);
+    for(int i = 0; i < 5; i++){
+        printf("%d\n", *(b + i));
+    }
     return 0;
 }

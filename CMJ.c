@@ -80,8 +80,8 @@ void initialize(Tile deck[]){
     //}
 
 void shuffle(Tile deck[], int *shuffleOrder){
-    for(int i = 0; i < RANDSIZE;i++){
-        deck[&(shuffleOrder + i)] = deck[i];
+    for(int i = 0; i < TILESET;i++){
+        deck[(*(shuffleOrder + i) % TILESET)] = deck[i];
     }
 }
 

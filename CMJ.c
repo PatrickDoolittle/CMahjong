@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #define TILESET 136
+#define RANDSIZE 1000
+#define INCREMENT 0
+#define MODULUS 32768
+#define SEED 1995
+#define MULT 20505
 
 struct tile{ //Data structure for a Riichi mahjong tile
     char *suit;
@@ -24,13 +29,16 @@ char *winds[4] = {"East","South","West","North"};
 //Function declarations
 void initialize(Tile deck[]);
 int * LCG();
+void shuffle (Tile deck[], int *shuffleOrder);
 
 int main(void)
 {
     printf("Welcome to C Mahjong.\n");
     Tile deck[TILESET]; //Array of tiles for the deck
     initialize(deck);
-    int *shuffle = LCG(); 
+    int *randomOrder;
+    randomOrder = LCG(); 
+    shuffle(deck, randomOrder);
     return 0;
 }
 
@@ -71,15 +79,17 @@ void initialize(Tile deck[]){
     //void draw(Tile deck[]){ 
     //}
 
-int shuffle(Tile deck[], int *shuffleOrder){
-    
+void shuffle(Tile deck[], int *shuffleOrder){
+    for(int i = 0; i < RANDSIZE;i++){
+        deck[&(shuffleOrder + i)] = deck[i];
+    }
 }
 
 int * LCG(){
-    static int randArray[4096];
-	randArray[0] = 2027;
-	for(int i = 1; i < 4096; i++){
-        randArray[i] = ((randArray[i - 1] * 3560) + 777) % 3881;
+    static int randArray[RANDSIZE];
+	randArray[0] = SEED;
+	for(int i = 1; i < RANDSIZE; i++){
+        randArray[i] = ((randArray[i - 1] * MULT) + INCREMENT) % MODULUS;
         printf("%d\n", randArray[i]);
     	}
     return randArray;

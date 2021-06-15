@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#define TILESET 136
 
 struct tile{ //Data structure for a Riichi mahjong tile
     char *suit;
@@ -22,12 +23,14 @@ char *winds[4] = {"East","South","West","North"};
 
 //Function declarations
 void initialize(Tile deck[]);
+int * LCG();
 
 int main(void)
 {
     printf("Welcome to C Mahjong.\n");
-    Tile deck[136]; //Array of tiles for the deck
-    initialize(deck); 
+    Tile deck[TILESET]; //Array of tiles for the deck
+    initialize(deck);
+    int *shuffle = LCG(); 
     return 0;
 }
 
@@ -63,10 +66,21 @@ void initialize(Tile deck[]){
             deckIndex++;
         }
     }
-
+}
     // Function to draw a hand of 14 tiles randomly from the Tile array deck[]
-    void draw(Tile deck[]){
-    
-    }
+    //void draw(Tile deck[]){ 
+    //}
 
+int shuffle(Tile deck[], int *shuffleOrder){
+    
+}
+
+int * LCG(){
+    static int randArray[4096];
+	randArray[0] = 2027;
+	for(int i = 1; i < 4096; i++){
+        randArray[i] = ((randArray[i - 1] * 3560) + 777) % 3881;
+        printf("%d\n", randArray[i]);
+    	}
+    return randArray;
 }

@@ -1,0 +1,6 @@
+make all --dry-run --keep-going --print-directory
+make: Entering directory '/home/psilcyan/CMahjong'
+make: Leaving directory '/home/psilcyan/CMahjong'
+ 
+make: *** No rule to make target 'all'.
+ 

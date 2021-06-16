@@ -1,11 +1,12 @@
+/* Riichi Mahjong implemented in the C language by Patrick Doolittle
+/ Project started Jun 2021. Using methods learned from a Riichi 
+/ Mahjong project started in the Python language. Random Number Generator
+/ and other algorithms done from scratch */
+
 #include <stdio.h>
-#include <string.h>
+#include "LCG.h"
+
 #define TILESET 136
-#define RANDSIZE 1000
-#define INCREMENT 0
-#define MODULUS 32768
-#define SEED 1995
-#define MULT 20505
 
 struct tile{ //Data structure for a Riichi mahjong tile
     char *suit;
@@ -20,7 +21,6 @@ struct player{ //Data structure for a Riichi mahjong player
 };
 typedef struct player Player;
 
-
 //String array of suits and honors
 char *suits[3] = {"Manzu","Pinzu","Souzu"};
 char *dragons[3] = {"Red","White","Green"};
@@ -28,8 +28,9 @@ char *winds[4] = {"East","South","West","North"};
 
 //Function declarations
 void initialize(Tile deck[]);
-int * LCG();
+//int * LCG();
 void shuffle (Tile deck[], int *shuffleOrder);
+
 
 int main(void)
 {
@@ -42,7 +43,7 @@ int main(void)
     return 0;
 }
 
-// Function to initialize a new set of tiles.
+// Initialize an array of Tiles with proper suit and value
 void initialize(Tile deck[]){
     int deckIndex = 0;
     //Initialize suited tiles
@@ -79,18 +80,9 @@ void initialize(Tile deck[]){
     //void draw(Tile deck[]){ 
     //}
 
+// Puts the list of tiles into a random order
 void shuffle(Tile deck[], int *shuffleOrder){
     for(int i = 0; i < TILESET;i++){
         deck[(*(shuffleOrder + i) % TILESET)] = deck[i];
     }
-}
-
-int * LCG(){
-    static int randArray[RANDSIZE];
-	randArray[0] = SEED;
-	for(int i = 1; i < RANDSIZE; i++){
-        randArray[i] = ((randArray[i - 1] * MULT) + INCREMENT) % MODULUS;
-        printf("%d\n", randArray[i]);
-    	}
-    return randArray;
 }

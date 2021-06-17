@@ -4,9 +4,13 @@
 / and other algorithms done from scratch */
 
 #include <stdio.h>
-#include "LCG.h"
 
 #define TILESET 136
+#define INCREMENT 0
+#define MODULUS 32768
+#define SEED 1995
+#define MULT 20505
+#define RANDSIZE 1000
 
 struct tile{ //Data structure for a Riichi mahjong tile
     char *suit;
@@ -28,7 +32,7 @@ char *winds[4] = {"East","South","West","North"};
 
 //Function declarations
 void initialize(Tile deck[]);
-//int * LCG();
+int * LCG();
 void shuffle (Tile deck[], int *shuffleOrder);
 
 
@@ -52,7 +56,6 @@ void initialize(Tile deck[]){
             for(int k=0;k<4;k++){
                 deck[deckIndex].suit = suits[i];
                 deck[deckIndex].value = j;
-		printf("Tile at index %d has suit %s and value %d\n", deckIndex, deck[deckIndex].suit, deck[deckIndex].value);
                 deckIndex++;
             }
         }
@@ -62,7 +65,6 @@ void initialize(Tile deck[]){
         for(int j=0;j<4;j++){
             deck[deckIndex].suit = dragons[i];
             deck[deckIndex].value = 0;
-	    printf("Tile at index %d has suit %s and value %d\n", deckIndex, deck[deckIndex].suit, deck[deckIndex].value);
             deckIndex++;
         }
     }
@@ -71,7 +73,6 @@ void initialize(Tile deck[]){
         for(int j=0;j<4;j++){
             deck[deckIndex].suit = winds[i];
             deck[deckIndex].value = 0;
-	    printf("Tile at index %d has suit %s and value %d\n", deckIndex, deck[deckIndex].suit, deck[deckIndex].value);
             deckIndex++;
         }
     }
@@ -85,4 +86,13 @@ void shuffle(Tile deck[], int *shuffleOrder){
     for(int i = 0; i < TILESET;i++){
         deck[(*(shuffleOrder + i) % TILESET)] = deck[i];
     }
+}
+
+int * LCG(){
+    static int randArray[RANDSIZE];
+	randArray[0] = SEED;
+	for(int i = 1; i < RANDSIZE; i++){
+        randArray[i] = ((randArray[i - 1] * MULT) + INCREMENT) % MODULUS;
+    	}
+    return randArray;
 }

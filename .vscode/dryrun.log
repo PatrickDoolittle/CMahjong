@@ -1,6 +1,5 @@
-make all --dry-run --keep-going --print-directory
+make CMJ --dry-run --keep-going --print-directory
 make: Entering directory '/home/psilcyan/CMahjong'
+make: 'CMJ' is up to date.
 make: Leaving directory '/home/psilcyan/CMahjong'
- 
-make: *** No rule to make target 'all'.
  
